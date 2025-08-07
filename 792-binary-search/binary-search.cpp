@@ -1,24 +1,33 @@
 class Solution {
 public:
+    int findnum(vector<int>& arr,int start,int end,int target){
+        if(start<=end){
+        int mid=start + (end-start)/2;
+        
+        if(arr[mid]==target){
+            return mid;
+        }
+        if(arr[mid]>target){
+          return  findnum(arr,start,mid-1,target);
+        }
+        else{
+          return  findnum(arr,mid+1,end,target);
+        }
+        }
+
+        return -1;
+    }
+    
+   
     int search(vector<int>& nums, int target) {
 
-        int left=0;
-        int right=nums.size()-1;
-       
+        int start=0;
+        int end=nums.size()-1;
 
-        while(left<=right){
-             int mid=left+(right-left)/2;
-            if(nums[mid]==target){
-                return mid;
-        }
-            else if(nums[mid]<target){
-                left=mid+1;
-            }
-            else{
-                right=mid-1;
-            }
+       int s=findnum(nums,start,end,target);
 
-        }
-        return -1;
+        return s;
+
+        
     }
 };
