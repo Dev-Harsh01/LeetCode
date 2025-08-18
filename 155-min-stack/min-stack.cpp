@@ -1,36 +1,30 @@
 class MinStack {
-private:
-    stack<int> mainStack;
-    stack<int> minStack;
-
 public:
-    // Constructor
-    MinStack() {}
+    stack<pair<int,int>> s;  // {value, min till now}
 
-    // Push value onto stack
+    MinStack() {
+        
+    }
+    
     void push(int val) {
-        mainStack.push(val);
-        // If minStack is empty or val is <= top of minStack, push to minStack
-        if (minStack.empty() || val <= minStack.top()) {
-            minStack.push(val);
+        if(s.empty()){
+            s.push({val, val});
+        }
+        else{
+            int minval = min(val, s.top().second);
+            s.push({val, minval});  // ✅ push both value and updated min
         }
     }
-
-    // Pop value from stack
+    
     void pop() {
-        if (mainStack.top() == minStack.top()) {
-            minStack.pop();
-        }
-        mainStack.pop();
+        s.pop();
     }
-
-    // Get top value
+    
     int top() {
-        return mainStack.top();
+        return s.top().first;
     }
-
-    // Get current minimum value
+    
     int getMin() {
-        return minStack.top();
+        return s.top().second;
     }
 };
